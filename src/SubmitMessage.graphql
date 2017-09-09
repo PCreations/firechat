@@ -1,0 +1,10 @@
+mutation SubmitMessage($content: String!) {
+  submitMessage(content: $content) {
+    id
+    content
+    user {
+      id
+      username
+    }
+  }
+}

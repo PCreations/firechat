@@ -1,0 +1,10 @@
+query GetMessages {
+  getMessages {
+    id
+    content
+    user {
+      id
+      username
+    }
+  }
+}
