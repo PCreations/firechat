@@ -15,7 +15,6 @@ registerPromiseWorker(request => {
     request.variables,
     request.operationName
   ).then(data => {
-    const r = request;
     if (data.errors) { console.error(data.errors[0]) }
     return data;
   });

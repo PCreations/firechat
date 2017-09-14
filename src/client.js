@@ -1,8 +1,16 @@
 import ApolloClient from 'apollo-client';
 import InMemoryCache from 'apollo-cache-inmemory';
 import { ApolloLink, SetContextLink } from 'apollo-link';
+import PromiseWorker from 'promise-worker';
+import { auth } from './firebase';
+import createFirebaseLink from './apollo-link-firebase';
 
-import FirebaseLink from './apollo-link-firebase';
+const GraphqlWorker = require('./worker.js');
+
+const worker = new GraphqlWorker();
+
+const promiseWorker = new PromiseWorker(worker);
+
 const dataIdFromObject = result => result.id;
 
 const cache = new InMemoryCache({
@@ -11,16 +19,16 @@ const cache = new InMemoryCache({
 });
 
 const getAuthContext = () => {
-  const auth = window.localStorage.getItem('firechatAuth');
-  if (auth !== null) {
-    return { auth };
+  const authUser = auth.currentUser;
+  if (authUser !== null) {
+    return { auth: authUser.uid };
   }
   return null
 }
 
 const link = ApolloLink.from([
   new SetContextLink(getAuthContext),
-  new FirebaseLink()
+  createFirebaseLink({ promiseWorker }),
 ]);
 
 

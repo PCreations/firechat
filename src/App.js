@@ -7,7 +7,7 @@ import createEagerElement from 'recompose/createEagerElement';
 import compose from 'recompose/compose';
 import { withApollo } from 'react-apollo';
 import CREATE_USER_MUTATION from './CreateUser.graphql';
-import { firebaseApp } from './firebase';
+import { auth } from './firebase';
 import logo from './logo.svg';
 import './App.css';
 import MessagesList from './MessagesList';
@@ -46,7 +46,7 @@ const withGithubAuth = compose(
 
 class App extends Component {
   state = {
-    authenticated: window.localStorage.getItem('firechatAuth') !== null,
+    authenticated: auth.currentUser !== null,
   };
   componentDidMount() {
     const self = this;
@@ -57,7 +57,6 @@ class App extends Component {
         .signInWithPopup(provider)
         .then(result => {
           const user = result.user;
-          window.localStorage.setItem('firechatAuth', user.uid);
           client.mutate({
             mutation: CREATE_USER_MUTATION,
             variables: {
