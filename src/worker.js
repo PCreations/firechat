@@ -5,19 +5,18 @@ import context from './context';
 
 const registerPromiseWorker = require('promise-worker/register');
 
-const getContext = request => {
-  context.auth = request.auth;
-  return context;
-}
-
-registerPromiseWorker(request => execute(
-  schema,
-  request.query,
-  {},
-  getContext(request),
-  request.variables,
-  request.operationName
-).then(res => res).catch(error => ({
-  data: null,
-  errors: [error],
-})));
+registerPromiseWorker(request => {
+  console.log(request);
+  return execute(
+    schema,
+    request.query,
+    {},
+    Object.assign({}, request.context || {}, context),
+    request.variables,
+    request.operationName
+  ).then(data => {
+    const r = request;
+    if (data.errors) { console.error(data.errors[0]) }
+    return data;
+  });
+})

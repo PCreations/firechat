@@ -42,6 +42,7 @@ const resolvers = {
   },
   Query: {
     getMessages(root, _, context) {
+      console.log('GETTING MESSAGES');
       return context.Messages.getAll();
     },
   },

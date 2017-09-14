@@ -33,7 +33,10 @@ export default compose(
   ),
   branch(
     props => props.data.error,
-    renderComponent(props => <p style={{color: 'red'}}>{props.data.error.toString()}</p>)
+    renderComponent(props => {
+      //console.error(props.data.error); //impurity powaa
+      return <p style={{color: 'red'}}>{props.data.error.toString()}</p>
+    }),
   ),
   mapProps(props => {
     console.log(props);
