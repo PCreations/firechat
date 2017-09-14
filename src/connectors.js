@@ -1,9 +1,5 @@
-import * as firebase from "firebase";
-
-export const createFirebaseConnector = config => {
-  const firebaseApp = firebase.initializeApp(config);
-  const db = firebaseApp.database();
-  
+export const createFirebaseConnector = db => {
+ 
   return {
     load(path) {
       return db.ref(path).once('value').then(snp => snp.val());

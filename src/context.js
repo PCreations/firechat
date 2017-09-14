@@ -1,8 +1,14 @@
 import { createUsersModel, createMessagesModel } from './models';
 import { createFirebaseConnector } from './connectors';
-import config from './firebaseConfig';
+import { initSubscriptions } from './subscriptions';
+import { db } from './firebase';
+import pubsub from './pubsub';
 
-const firebaseConnector = createFirebaseConnector(config);
+const firebaseConnector = createFirebaseConnector(db);
+initSubscriptions({
+  db,
+  pubsub,
+});
 
 const context = {
   Users: createUsersModel(firebaseConnector),

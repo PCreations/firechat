@@ -7,13 +7,12 @@ import createEagerElement from 'recompose/createEagerElement';
 import compose from 'recompose/compose';
 import { withApollo } from 'react-apollo';
 import CREATE_USER_MUTATION from './CreateUser.graphql';
-import config from './firebaseConfig';
+import { firebaseApp } from './firebase';
 import logo from './logo.svg';
 import './App.css';
 import MessagesList from './MessagesList';
 import MessageInput from './MessageInput';
 
-const firebaseApp = firebase.initializeApp(config);
 
 /*const GithubAuthenticator = BaseComponent => withApollo(({
   setAuthenticated,
