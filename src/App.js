@@ -55,8 +55,9 @@ class App extends Component {
       const provider = new firebase.auth.GithubAuthProvider();
       firebase.auth()
         .signInWithPopup(provider)
-        .then(result => {
+        .then(result => { 
           const user = result.user;
+          window.localStorage.setItem('firechatCredential', result.credential.accessToken);
           client.mutate({
             mutation: CREATE_USER_MUTATION,
             variables: {

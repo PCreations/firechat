@@ -51,7 +51,7 @@ const resolvers = {
       return context.Messages
         .create({
           content,
-          userId: context.auth,
+          userId: context.auth.uid,
         });
     },
     createUser(root, { user }, context) {

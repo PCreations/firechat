@@ -21,9 +21,14 @@ const cache = new InMemoryCache({
 const getAuthContext = () => {
   const authUser = auth.currentUser;
   if (authUser !== null) {
-    return { auth: authUser.uid };
+    return {
+      auth: {
+        uid: authUser.uid,
+        credential: window.localStorage.getItem('firechatCredential'),
+      },
+    };
   }
-  return null
+  return null;
 }
 
 const link = ApolloLink.from([
