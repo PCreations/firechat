@@ -1,6 +1,7 @@
 import {
   makeExecutableSchema,
 } from 'graphql-tools';
+import pubsub from './pubsub'; 
 
 const schemaString = `
   type User {
@@ -31,6 +32,10 @@ const schemaString = `
       user: UserInput
     ): User
   }
+  
+  type Subscription {
+    messageAdded: Message!
+  }
 
 `;
 
@@ -58,6 +63,11 @@ const resolvers = {
       return context.Users
         .create(user)
         .then(() => context.Users.getById(user.id));
+    },
+  },
+  Subscription: {
+    messageAdded: {
+      subscribe: () => { console.log('resolve messageAdded'); return pubsub.asyncIterator('OnMessageAdded')},
     },
   },
 };

@@ -14,36 +14,6 @@ import MessagesList from './MessagesList';
 import MessageInput from './MessageInput';
 
 
-/*const GithubAuthenticator = BaseComponent => withApollo(({
-  setAuthenticated,
-  client,
-  ...props
-}) => {
-  const provider = new firebase.auth.GithubAuthProvider();
-    firebase.auth()
-      .signInWithPopup(provider)
-      .then(result => {
-        const user = result.user;
-        window.localStorage.setItem('firechatAuth', user);
-        client.mutate({
-          mutation: CREATE_USER_MUTATION,
-          variables: {
-            user: { username: user.displayName, id: user.uuid },
-          }
-        }).then(() => setAuthenticated(true));
-      });
-  return createEagerElement(BaseComponent, props);
-});
-
-const withGithubAuth = compose(
-  withState('authenticated', 'setAuthenticated', _ => window.localStorage.getItem('firechatAuth') !== null),
-  branch(
-    props => props.authenticated === false,
-    renderComponent(() => <div>Authenticating...</div>)
-  ),
-  GithubAuthenticator
-);*/
-
 class App extends Component {
   state = {
     authenticated: auth.currentUser !== null,
@@ -55,7 +25,7 @@ class App extends Component {
       const provider = new firebase.auth.GithubAuthProvider();
       firebase.auth()
         .signInWithPopup(provider)
-        .then(result => { 
+        .then(result => {
           const user = result.user;
           window.localStorage.setItem('firechatCredential', result.credential.accessToken);
           client.mutate({

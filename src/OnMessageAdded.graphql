@@ -1,0 +1,10 @@
+subscription OnMessageAdded {
+  messageAdded {
+    id
+    content
+    user {
+      id
+      username
+    }
+  }
+}

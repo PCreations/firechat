@@ -1,22 +1,20 @@
-import ApolloClient from 'apollo-client';
+import { ApolloClient } from 'apollo-client';
 import InMemoryCache from 'apollo-cache-inmemory';
-import { ApolloLink, SetContextLink } from 'apollo-link';
-import PromiseWorker from 'promise-worker';
+import { ApolloLink } from 'apollo-link';
+import SetContextLink from 'apollo-link-set-context';
+import LoggingLink from 'apollo-link-logging';
 import { auth } from './firebase';
-import createFirebaseLink from './apollo-link-firebase';
+import { createWebWorkerLink } from 'apollo-link-webworker';
 
 const GraphqlWorker = require('./worker.js');
 
 const worker = new GraphqlWorker();
 
-const promiseWorker = new PromiseWorker(worker);
+const webWorkerLink = createWebWorkerLink({ worker });
 
 const dataIdFromObject = result => result.id;
 
-const cache = new InMemoryCache({
-  connectToDevTools: true,
-  dataIdFromObject,
-});
+const cache = new InMemoryCache({ dataIdFromObject });
 
 const getAuthContext = () => {
   const authUser = auth.currentUser;
@@ -29,17 +27,11 @@ const getAuthContext = () => {
     };
   }
   return null;
-}
-
-const link = ApolloLink.from([
-  new SetContextLink(getAuthContext),
-  createFirebaseLink({ promiseWorker }),
-]);
-
+};
 
 const client = new ApolloClient({
   cache,
-  link,
+  link: ApolloLink.from([new SetContextLink(getAuthContext), webWorkerLink])
 });
 
 export default client;

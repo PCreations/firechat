@@ -14,7 +14,10 @@ const enhance = compose(
         variables: { content },
         update: (store, { data: { submitMessage } }) => {
           const data = store.readQuery({ query: GET_MESSAGES_QUERY });
-          data.getMessages.push(submitMessage);
+          data.getMessages = [
+            ...data.getMessages.filter(msg => msg.id !== submitMessage.id),
+            submitMessage,
+          ];
           store.writeQuery({ query: GET_MESSAGES_QUERY, data });
         },
       }),
