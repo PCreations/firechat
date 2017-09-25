@@ -2,7 +2,6 @@ import { ApolloClient } from 'apollo-client';
 import InMemoryCache from 'apollo-cache-inmemory';
 import { ApolloLink } from 'apollo-link';
 import SetContextLink from 'apollo-link-set-context';
-import LoggingLink from 'apollo-link-logging';
 import { auth } from './firebase';
 import { createWebWorkerLink } from 'apollo-link-webworker';
 

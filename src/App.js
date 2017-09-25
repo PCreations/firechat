@@ -13,11 +13,10 @@ class App extends Component {
   state = {
     authenticated: auth.currentUser !== null,
   };
-  componentDidMount() {
-    const self = this;
+  githubAuth = () => {
     const { client } = this.props;
-    if (!self.state.authenticated) {
-      const provider = new firebase.auth.GithubAuthProvider();
+    const self = this;
+    const provider = new firebase.auth.GithubAuthProvider();
       firebase.auth()
         .signInWithPopup(provider)
         .then(result => {
@@ -33,7 +32,6 @@ class App extends Component {
             },
           }).then(() => self.setState({ authenticated: true }));
         });
-    }
   }
   render() {
     return (
@@ -48,7 +46,7 @@ class App extends Component {
             <MessageInput sendMessage={console.log.bind(console)} />
           </div>
         ) : (
-          <p>Authenticating...</p>
+          <button onClick={this.githubAuth}>LOGIN WITH GITHUB</button>
         )}
       </div>
     )
