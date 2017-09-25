@@ -26,10 +26,10 @@ createWorker({
   beforeExecute, 
 });
 
-/*self.onmessage = message => handleSubscriptions({
+self.onmessage = message => handleSubscriptions({
   self,
   message,
   schema,
   context,
   pubsub,
-});*/
+});

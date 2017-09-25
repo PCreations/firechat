@@ -1,10 +1,5 @@
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
-import withState from 'recompose/withState';
-import branch from 'recompose/branch';
-import renderComponent from 'recompose/renderComponent';
-import createEagerElement from 'recompose/createEagerElement';
-import compose from 'recompose/compose';
 import { withApollo } from 'react-apollo';
 import CREATE_USER_MUTATION from './CreateUser.graphql';
 import { auth } from './firebase';

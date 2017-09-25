@@ -1,9 +1,6 @@
 import pubsub from './pubsub';
 import DataLoader from 'dataloader';
 
-import client from './client';
-import GET_MESSAGES_QUERY from './GetMessages.graphql';
-
 
 export const createFirebaseConnector = db => {
   const firebaseLoader = new DataLoader(
