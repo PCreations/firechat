@@ -12,7 +12,7 @@ yarn
 ```
 
 # Create your own firebase project
-
+Accept the Github authentication in the authentication settings of your project.
 Then you will have to edit some configuration file with your information :
 
 *firechat/.firebaserc*
