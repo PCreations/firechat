@@ -3,7 +3,6 @@
 # dependencies
 /node_modules
 .c9/
-.env
 
 # testing
 /coverage
