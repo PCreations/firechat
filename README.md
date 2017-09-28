@@ -1,8 +1,5 @@
 Firechat is a tiny chat application to demonstrate the use of apollo-link-webworker and firebase to handle graphql on the client side only
 
-# Logging in with Github
-If you want to test the application, you might need to accept the popup. Popup gets actually blocked by the vast majority of browsers because the popup is not triggered by an user action.
-
 # Installing
 ```
 git clone https://github.com/PCreations/firechat.git

@@ -7,7 +7,7 @@ import pubsub from './pubsub';
 import { auth } from './firebase';
 
 
-const beforeExecute = request => {
+const beforeRequest = request => {
   return new Promise(resolve => {
     if (auth.currentUser === null) {
       const credential = firebase.auth
@@ -23,7 +23,7 @@ const beforeExecute = request => {
 createWorker({
   schema,
   context,
-  beforeExecute, 
+  beforeRequest, 
 });
 
 self.onmessage = message => handleSubscriptions({
