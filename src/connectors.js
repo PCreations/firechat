@@ -4,9 +4,9 @@ import DataLoader from 'dataloader';
 
 export const createFirebaseConnector = db => {
   const firebaseLoader = new DataLoader(
-    keys => keys.map(
+    keys => Promise.all(keys.map(
       key => db.ref(key).once('value').then(snp => snp.val())
-    ));
+    )));
     
   // subscriptions && dataloader cache management
   let newMessage = false;

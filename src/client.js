@@ -13,7 +13,10 @@ const webWorkerLink = createWebWorkerLink({ worker });
 
 const dataIdFromObject = result => result.id;
 
-const cache = new InMemoryCache({ dataIdFromObject });
+const cache = new InMemoryCache({
+  dataIdFromObject,
+  connectToDevTools: true,
+});
 
 const getAuthContext = () => {
   const authUser = auth.currentUser;
@@ -32,5 +35,7 @@ const client = new ApolloClient({
   cache,
   link: ApolloLink.from([new SetContextLink(getAuthContext), webWorkerLink])
 });
+
+window.__APOLLO_CLIENT__ = client;
 
 export default client;
