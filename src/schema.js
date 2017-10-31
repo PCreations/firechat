@@ -67,7 +67,9 @@ const resolvers = {
   },
   Subscription: {
     messageAdded: {
-      subscribe: () => { console.log('resolve messageAdded'); return pubsub.asyncIterator('OnMessageAdded')},
+      subscribe: () => {
+        return pubsub.asyncIterator('OnMessageAdded');
+      },
     },
   },
 };

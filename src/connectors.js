@@ -10,7 +10,9 @@ export const createFirebaseConnector = db => {
     
   // subscriptions && dataloader cache management
   let newMessage = false;
+  console.log('DB REF');
   db.ref('/messages/').on('child_added', snapshot => {
+    console.log('CHILD ADDED MESSAGES');
     if (newMessage === true) {
       firebaseLoader.clear(`/messages/${snapshot.key}`);
       firebaseLoader.prime(`/messages/${snapshot.key}`, snapshot.val());

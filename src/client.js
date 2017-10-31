@@ -1,7 +1,6 @@
 import { ApolloClient } from 'apollo-client';
 import InMemoryCache from 'apollo-cache-inmemory';
 import { ApolloLink } from 'apollo-link';
-import SetContextLink from 'apollo-link-set-context';
 import { auth } from './firebase';
 import { createWebWorkerLink } from 'apollo-link-webworker';
 
@@ -28,12 +27,17 @@ const getAuthContext = () => {
       },
     };
   }
-  return null;
+  return {};
 };
 
 const client = new ApolloClient({
   cache,
-  link: ApolloLink.from([new SetContextLink(getAuthContext), webWorkerLink])
+  link: ApolloLink.from([new ApolloLink((operation, forward) => {
+    operation.context = {
+      ...getAuthContext(),
+    };
+    return forward(operation);
+  }), webWorkerLink]),
 });
 
 window.__APOLLO_CLIENT__ = client;
