@@ -27,7 +27,7 @@ class App extends Component {
             variables: {
               user: {
                 id: user.uid,
-                username: user.displayName,
+                username: user.displayName || user.email,
               },
             },
           }).then(() => self.setState({ authenticated: true }));
